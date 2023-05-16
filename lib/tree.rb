@@ -1,24 +1,26 @@
 class Tree
+  attr_reader :root
+
   def initialize(array)
     @array = array
-    set_root
-  end
-
-  def set_root
-    @root = Node.new(@array[mid_index(@array)]) if @array.size > 0
+    build_tree
   end
 
   def build_tree
-    curr_root = @array[mid_index(@array)]
-    
+    build_branch(0, @array.length - 1)
   end
 
   private
 
-  # Return the middle index of the given array.
-  # Return -1 if the array is empty.
-  def mid_index(array)
-    return (0 + array.length - 1) / 2
+  def build_branch(start_index, end_index
+    return nil if start_index > end_index
+
+    mid_index = (start_index + end_index) / 2
+    curr_root = Node.new(@array(mid_index))
+    curr_root.left_child = build_branch(start_index, mid_index - 1)
+    curr_root.right_child = build_branch(mid_index + 1, end_index)
+
+    return curr_root
   end
 
   def pp_right_args(node, prefix, is_left)
