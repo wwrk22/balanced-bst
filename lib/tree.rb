@@ -4,7 +4,7 @@ class Tree
   attr_reader :root
 
   def initialize(array)
-    @array = array 
+    @array = array.uniq!.sort!
     build_tree
   end
 
