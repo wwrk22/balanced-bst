@@ -18,6 +18,13 @@ class Tree
     return find(data, root_node.right_child) # data > root_node.data
   end
 
+  def insert(data)
+    return false if find(data)
+    @root = Node.new(data) if @root.nil?
+    insert_at(data)
+    return true
+  end
+
   def print_tree(include_array=true)
     return puts "Tree is empty" if @array.size == 0
     p @array if include_array
@@ -51,5 +58,29 @@ class Tree
 
   def pp_right_args(node, prefix, is_left)
     [node.right_child, "#{prefix}#{is_left ? '│   ' : '    '}", false]
+  end
+
+  def insert_at(data, root_node = @root)
+    if data < root_node.data
+      insert_at_left_child(data, root_node)
+    else
+      insert_at_right_child(data, root_node)
+    end
+  end
+
+  def insert_at_left_child(data, root_node)
+    if root_node.left_child.nil?
+      root_node.left_child = Node.new(data)
+    else
+      insert_at(data, root_node.left_child)
+    end
+  end
+
+  def insert_at_right_child(data, root_node)
+    if root_node.right_child.nil?
+      root_node.right_child = Node.new(data)
+    else
+      insert_at(data, root_node.right_child)
+    end
   end
 end
