@@ -1,17 +1,4 @@
 require_relative './lib/tree'
 
-tree = Tree.new([1, 2, 3, 4, 5, 6])
-tree.print_tree(true)
-puts
-
-short_tree = Tree.new([1])
-short_tree.print_tree
-puts
-
-empty_tree = Tree.new([])
-empty_tree.print_tree
-puts
-
-tall_tree = Tree.new([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11])
-tall_tree.print_tree
-puts
+tree = Tree.new([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324])
+tree.print_tree

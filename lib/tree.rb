@@ -4,7 +4,7 @@ class Tree
   attr_reader :root
 
   def initialize(array)
-    @array = array.uniq!.sort!
+    @array = array.uniq.sort
     build_tree
   end
 
@@ -12,7 +12,13 @@ class Tree
     @root = build_branch(0, @array.length - 1)
   end
 
-  def print_tree(include_array=false)
+  def find(data, root_node = @root)
+    return root_node if root_node.nil? || root_node.data == data
+    return find(data, root_node.left_child) if data < root_node.data
+    return find(data, root_node.right_child) # data > root_node.data
+  end
+
+  def print_tree(include_array=true)
     return puts "Tree is empty" if @array.size == 0
     p @array if include_array
     pretty_print
