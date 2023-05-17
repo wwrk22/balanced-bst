@@ -38,3 +38,15 @@ inorder_array = tree.inorder { |node| print node.data.to_s + ' ' }
 puts
 p inorder_array
 puts
+
+puts "Preorder print"
+preorder_array = tree.preorder { |node| print node.data.to_s + ' ' }
+puts
+p preorder_array
+puts
+
+puts "Postorder print"
+postorder_array = tree.postorder { |node| print node.data.to_s + ' ' }
+puts
+p postorder_array
+puts

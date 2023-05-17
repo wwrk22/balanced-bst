@@ -44,6 +44,18 @@ class Tree
     return inorder_array
   end
 
+  def preorder(root_node = @root, &node_proc)
+    preorder_array = []
+    preorder_traversal(root_node, preorder_array, node_proc)
+    return preorder_array
+  end
+
+  def postorder(root_node = @root, &node_proc)
+    postorder_array = []
+    postorder_traversal(root_node, postorder_array, node_proc)
+    return postorder_array
+  end
+
   def print_tree(include_array=true)
     return puts "Tree is empty" if @array.size == 0
     p @array if include_array
@@ -163,5 +175,21 @@ class Tree
     node_proc.call root_node
     inorder_array << root_node.data
     inorder_traversal(root_node.right_child, inorder_array, node_proc)
+  end
+
+  def preorder_traversal(root_node, preorder_array, node_proc)
+    return if root_node.nil?
+    node_proc.call root_node
+    preorder_array << root_node.data
+    preorder_traversal(root_node.left_child, preorder_array, node_proc)
+    preorder_traversal(root_node.right_child, preorder_array, node_proc)
+  end
+
+  def postorder_traversal(root_node, postorder_array, node_proc)
+    return if root_node.nil?
+    postorder_traversal(root_node.left_child, postorder_array, node_proc)
+    postorder_traversal(root_node.right_child, postorder_array, node_proc)
+    node_proc.call root_node
+    postorder_array << root_node.data
   end
 end
