@@ -50,6 +50,18 @@ class Tree
     end
   end
 
+  def level_order
+    q = []
+    q << @root if @root
+
+    until q.empty? do
+      node = q.shift
+      yield node
+      q << node.left_child if node.left_child
+      q << node.right_child if node.right_child
+    end
+  end
+
   def print_tree(include_array=true)
     return puts "Tree is empty" if @array.size == 0
     p @array if include_array
