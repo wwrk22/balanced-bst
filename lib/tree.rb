@@ -18,6 +18,11 @@ class Tree
     return find(data, root_node.right_child) # data > root_node.data
   end
 
+  def depth(data)
+    return -1 if find(data).nil?
+    return compute_depth(data)
+  end
+
   def insert(data)
     return false if find(data)
     @root = Node.new(data) if @root.nil?
@@ -198,5 +203,13 @@ class Tree
     postorder_traversal(root_node.right_child, postorder_array, node_proc)
     node_proc.call root_node
     postorder_array << root_node.data
+  end
+
+  def compute_depth(data, root_node = @root)
+    return 0 if root_node.data == data
+    left_subtree = root_node.left_child
+    right_subtree = root_node.right_child
+    return 1 + compute_depth(data, left_subtree) if data < root_node.data
+    return 1 + compute_depth(data, right_subtree) if data > root_node.data
   end
 end

@@ -56,3 +56,6 @@ tree.delete(3)
 tree.delete(7)
 tree.print_tree
 puts "Height = #{tree.height}"
+
+puts "Depth 20 = #{tree.depth(7)}"
+puts "Depth 6 = #{tree.depth(6)}"
