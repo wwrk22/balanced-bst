@@ -56,6 +56,13 @@ class Tree
     return postorder_array
   end
 
+  def height(root_node = @root)
+    return 0 if root_node.nil?
+    left_height = height(root_node.left_child)
+    right_height = height(root_node.right_child)
+    return (left_height > right_height) ? 1 + left_height : 1 + right_height
+  end
+
   def print_tree(include_array=true)
     return puts "Tree is empty" if @array.size == 0
     p @array if include_array

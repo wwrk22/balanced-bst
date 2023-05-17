@@ -50,3 +50,9 @@ postorder_array = tree.postorder { |node| print node.data.to_s + ' ' }
 puts
 p postorder_array
 puts
+
+puts "Height = #{tree.height}"
+tree.delete(3)
+tree.delete(7)
+tree.print_tree
+puts "Height = #{tree.height}"
