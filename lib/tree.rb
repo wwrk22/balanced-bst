@@ -26,40 +26,28 @@ class Tree
   end
 
   def delete(data)
-    # Update array
     @array.delete(data)
     @root = delete_node(data)
   end
 
   def delete_node(data, root_node = @root)
-    # Empty tree
-    return nil if root_node.nil?
+    return nil if root_node.nil? # Empty tree
 
-    # Non-empty tree
     if root_node.data == data
-      # Leaf node
-      if root_node.left_child.nil? && root_node.right_child.nil?
-        root_node = nil
-      else # Parent node
-        successor = root_node.right_child
-        successor = successor.left_child until successor.nil? || successor.left_child.nil?
-
-        if successor.nil?
-          root_node = root_node.left_child
-        else
-          root_node.data = successor.data
-          root_node.right_child = delete_node(successor.data, root_node.right_child)
-        end
-      end
+      root_node = replace_node(root_node)
     else # Not a match
-      if data < root_node.data
-        root_node.left_child = delete_node(data, root_node.left_child)
-      else # data > root_node.data
-        root_node.right_child = delete_node(data, root_node.right_child)
-      end
+      delete_at_children(data, root_node)
     end
 
     return root_node
+  end
+
+  def replace_node(root_node)
+    if root_node.left_child.nil? && root_node.right_child.nil?
+      return nil
+    else # Parent node
+      return replace_with_successor(root_node)
+    end
   end
 
   def print_tree(include_array=true)
@@ -119,5 +107,29 @@ class Tree
     else
       insert_at(data, root_node.right_child)
     end
+  end
+
+  def delete_at_children(data, root_node)
+    if data < root_node.data
+      root_node.left_child = delete_node(data, root_node.left_child)
+    else # data > root_node.data
+      root_node.right_child = delete_node(data, root_node.right_child)
+    end
+  end
+
+  def replace_with_successor(root_node)
+    if root_node.right_child.nil?
+      return root_node.left_child
+    else
+      return right_subtree_succession(root_node)
+    end
+  end
+
+  def right_subtree_succession(root_node)
+    successor = root_node.right_child
+    successor = successor.left_child until successor.left_child.nil?
+    root_node.data = successor.data
+    root_node.right_child = delete_node(successor.data, root_node.right_child)
+    return root_node
   end
 end

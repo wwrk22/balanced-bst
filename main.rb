@@ -15,6 +15,10 @@ puts "Insert 6"
 tree.insert(6)
 tree.print_tree
 
+puts "Delete 2"
+tree.delete(2)
+tree.print_tree
+
 puts "Delete 4"
 tree.delete(4)
 tree.print_tree
