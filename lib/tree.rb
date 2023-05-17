@@ -30,41 +30,14 @@ class Tree
     @root = delete_node(data)
   end
 
-  def delete_node(data, root_node = @root)
-    return nil if root_node.nil? # Empty tree
-
-    if root_node.data == data
-      root_node = replace_node(root_node)
-    else # Not a match
-      delete_at_children(data, root_node)
-    end
-
-    return root_node
-  end
-
-  def replace_node(root_node)
-    if root_node.left_child.nil? && root_node.right_child.nil?
-      return nil
-    else # Parent node
-      return replace_with_successor(root_node)
-    end
-  end
-
-  def level_order
+  def level_order(&node_proc)
     q = []
     q << @root if @root
     level_order_array = []
-
-    until q.empty? do
-      node = q.shift
-      level_order_array << node.data
-      yield node
-      q << node.left_child if node.left_child
-      q << node.right_child if node.right_child
-    end
-
+    process_q(q, level_order_array, node_proc)
     return level_order_array
   end
+
 
   def print_tree(include_array=true)
     return puts "Tree is empty" if @array.size == 0
@@ -125,6 +98,26 @@ class Tree
     end
   end
 
+  def delete_node(data, root_node = @root)
+    return nil if root_node.nil? # Empty tree
+
+    if root_node.data == data
+      root_node = replace_node(root_node)
+    else # Not a match
+      delete_at_children(data, root_node)
+    end
+
+    return root_node
+  end
+
+  def replace_node(root_node)
+    if root_node.left_child.nil? && root_node.right_child.nil?
+      return nil
+    else # Parent node
+      return replace_with_successor(root_node)
+    end
+  end
+
   def delete_at_children(data, root_node)
     if data < root_node.data
       root_node.left_child = delete_node(data, root_node.left_child)
@@ -147,5 +140,15 @@ class Tree
     root_node.data = successor.data
     root_node.right_child = delete_node(successor.data, root_node.right_child)
     return root_node
+  end
+
+  def process_q(q, level_order_array, node_proc)
+    until q.empty? do
+      node = q.shift
+      level_order_array << node.data
+      node_proc.call node
+      q << node.left_child if node.left_child
+      q << node.right_child if node.right_child
+    end
   end
 end

@@ -32,3 +32,6 @@ level_order_array = tree.level_order { |node| print node.data.to_s + ' ' }
 puts
 p level_order_array
 puts
+
+#puts "Inorder print"
+#tree.inorder
