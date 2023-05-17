@@ -61,6 +61,11 @@ class Tree
     return postorder_array
   end
 
+  def balanced?(root_node = @root)
+    return true if root_node.nil?
+    return subtree_balanced?(root_node)
+  end
+
   def height(root_node = @root)
     return 0 if root_node.nil?
     left_height = height(root_node.left_child)
@@ -212,4 +217,17 @@ class Tree
     return 1 + compute_depth(data, left_subtree) if data < root_node.data
     return 1 + compute_depth(data, right_subtree) if data > root_node.data
   end
+
+  def subtree_balanced?(root_node)
+    left_height = height(root_node.left_child)
+    right_height = height(root_node.right_child)
+    left_balanced = balanced?(root_node.left_child)
+    right_balanced = balanced?(root_node.right_child)
+    return height_diff(left_height, right_height) <= 1 && left_balanced && right_balanced
+  end
+
+  def height_diff(a, b)
+    (a - b).abs
+  end
+
 end

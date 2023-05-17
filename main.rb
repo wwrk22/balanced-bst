@@ -59,3 +59,5 @@ puts "Height = #{tree.height}"
 
 puts "Depth 20 = #{tree.depth(7)}"
 puts "Depth 6 = #{tree.depth(6)}"
+
+puts "balanced? = #{tree.balanced?}"
