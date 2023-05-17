@@ -66,6 +66,13 @@ class Tree
     return subtree_balanced?(root_node)
   end
 
+  def rebalance
+    return if balanced?
+    @array.clear
+    inorder { |node| @array << node.data }
+    build_tree
+  end
+
   def height(root_node = @root)
     return 0 if root_node.nil?
     left_height = height(root_node.left_child)
@@ -180,7 +187,7 @@ class Tree
     until q.empty? do
       node = q.shift
       level_order_array << node.data
-      node_proc.call node
+      node_proc.call node if node_proc
       q << node.left_child if node.left_child
       q << node.right_child if node.right_child
     end
@@ -189,14 +196,14 @@ class Tree
   def inorder_traversal(root_node, inorder_array, node_proc)
     return if root_node.nil?
     inorder_traversal(root_node.left_child, inorder_array, node_proc)
-    node_proc.call root_node
+    node_proc.call root_node if node_proc
     inorder_array << root_node.data
     inorder_traversal(root_node.right_child, inorder_array, node_proc)
   end
 
   def preorder_traversal(root_node, preorder_array, node_proc)
     return if root_node.nil?
-    node_proc.call root_node
+    node_proc.call root_node if node_proc
     preorder_array << root_node.data
     preorder_traversal(root_node.left_child, preorder_array, node_proc)
     preorder_traversal(root_node.right_child, preorder_array, node_proc)
@@ -206,7 +213,7 @@ class Tree
     return if root_node.nil?
     postorder_traversal(root_node.left_child, postorder_array, node_proc)
     postorder_traversal(root_node.right_child, postorder_array, node_proc)
-    node_proc.call root_node
+    node_proc.call root_node if node_proc
     postorder_array << root_node.data
   end
 
@@ -229,5 +236,4 @@ class Tree
   def height_diff(a, b)
     (a - b).abs
   end
-
 end

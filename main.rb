@@ -1,63 +1,42 @@
 require_relative './lib/tree'
 
-tree = Tree.new([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324])
-tree.print_tree
+t = Tree.new(Array.new(15) { rand(1..100) })
 
-puts "Insert 2"
-tree.insert(2)
-tree.print_tree
+t.print_tree
+puts "balanced? = #{t.balanced?}"
 
-puts "Insert 200"
-tree.insert(200)
-tree.print_tree
+puts "level order"
+p t.level_order
 
-puts "Insert 6"
-tree.insert(6)
-tree.print_tree
+puts "preorder"
+p t.preorder
 
-puts "Delete 2"
-tree.delete(2)
-tree.print_tree
+puts "inorder"
+p t.inorder
 
-puts "Delete 4"
-tree.delete(4)
-tree.print_tree
+puts "postorder"
+p t.postorder
 
-puts "Delete 8"
-tree.delete(8)
-tree.print_tree
+t.insert(101)
+t.insert(102)
+t.insert(103)
 
-puts "Level order print"
-level_order_array = tree.level_order { |node| print node.data.to_s + ' ' }
-puts
-p level_order_array
-puts
+t.print_tree
+puts "balanced? = #{t.balanced?}"
 
-puts "Inorder print"
-inorder_array = tree.inorder { |node| print node.data.to_s + ' ' }
-puts
-p inorder_array
-puts
+puts "rebalance"
+t.rebalance
+t.print_tree
+puts "balanced? = #{t.balanced?}"
 
-puts "Preorder print"
-preorder_array = tree.preorder { |node| print node.data.to_s + ' ' }
-puts
-p preorder_array
-puts
+puts "level order"
+p t.level_order
 
-puts "Postorder print"
-postorder_array = tree.postorder { |node| print node.data.to_s + ' ' }
-puts
-p postorder_array
-puts
+puts "preorder"
+p t.preorder
 
-puts "Height = #{tree.height}"
-tree.delete(3)
-tree.delete(7)
-tree.print_tree
-puts "Height = #{tree.height}"
+puts "inorder"
+p t.inorder
 
-puts "Depth 20 = #{tree.depth(7)}"
-puts "Depth 6 = #{tree.depth(6)}"
-
-puts "balanced? = #{tree.balanced?}"
+puts "postorder"
+p t.postorder
