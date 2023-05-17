@@ -53,13 +53,17 @@ class Tree
   def level_order
     q = []
     q << @root if @root
+    level_order_array = []
 
     until q.empty? do
       node = q.shift
+      level_order_array << node.data
       yield node
       q << node.left_child if node.left_child
       q << node.right_child if node.right_child
     end
+
+    return level_order_array
   end
 
   def print_tree(include_array=true)

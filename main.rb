@@ -28,5 +28,7 @@ tree.delete(8)
 tree.print_tree
 
 puts "Level order print"
-tree.level_order { |node| print node.data.to_s + ' ' }
+level_order_array = tree.level_order { |node| print node.data.to_s + ' ' }
+puts
+p level_order_array
 puts
