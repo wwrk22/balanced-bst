@@ -33,5 +33,8 @@ puts
 p level_order_array
 puts
 
-#puts "Inorder print"
-#tree.inorder
+puts "Inorder print"
+inorder_array = tree.inorder { |node| print node.data.to_s + ' ' }
+puts
+p inorder_array
+puts

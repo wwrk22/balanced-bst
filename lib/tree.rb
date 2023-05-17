@@ -38,6 +38,11 @@ class Tree
     return level_order_array
   end
 
+  def inorder(root_node = @root, &node_proc)
+    inorder_array = []
+    inorder_traversal(root_node, inorder_array, node_proc)
+    return inorder_array
+  end
 
   def print_tree(include_array=true)
     return puts "Tree is empty" if @array.size == 0
@@ -150,5 +155,13 @@ class Tree
       q << node.left_child if node.left_child
       q << node.right_child if node.right_child
     end
+  end
+
+  def inorder_traversal(root_node, inorder_array, node_proc)
+    return if root_node.nil?
+    inorder_traversal(root_node.left_child, inorder_array, node_proc)
+    node_proc.call root_node
+    inorder_array << root_node.data
+    inorder_traversal(root_node.right_child, inorder_array, node_proc)
   end
 end
