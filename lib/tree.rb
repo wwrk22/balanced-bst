@@ -25,6 +25,43 @@ class Tree
     return true
   end
 
+  def delete(data)
+    # Update array
+    @array.delete(data)
+    @root = delete_node(data)
+  end
+
+  def delete_node(data, root_node = @root)
+    # Empty tree
+    return nil if root_node.nil?
+
+    # Non-empty tree
+    if root_node.data == data
+      # Leaf node
+      if root_node.left_child.nil? && root_node.right_child.nil?
+        root_node = nil
+      else # Parent node
+        successor = root_node.right_child
+        successor = successor.left_child until successor.nil? || successor.left_child.nil?
+
+        if successor.nil?
+          root_node = root_node.left_child
+        else
+          root_node.data = successor.data
+          root_node.right_child = delete_node(successor.data, root_node.right_child)
+        end
+      end
+    else # Not a match
+      if data < root_node.data
+        root_node.left_child = delete_node(data, root_node.left_child)
+      else # data > root_node.data
+        root_node.right_child = delete_node(data, root_node.right_child)
+      end
+    end
+
+    return root_node
+  end
+
   def print_tree(include_array=true)
     return puts "Tree is empty" if @array.size == 0
     p @array if include_array

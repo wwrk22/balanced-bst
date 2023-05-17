@@ -10,3 +10,15 @@ tree.print_tree
 puts "Insert 200"
 tree.insert(200)
 tree.print_tree
+
+puts "Insert 6"
+tree.insert(6)
+tree.print_tree
+
+puts "Delete 4"
+tree.delete(4)
+tree.print_tree
+
+puts "Delete 8"
+tree.delete(8)
+tree.print_tree
